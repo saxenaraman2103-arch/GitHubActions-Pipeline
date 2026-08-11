@@ -37,18 +37,32 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      # 4. Terraform Format Check
+      # 4. Setup TFLint
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v5
+        with:
+          tflint_version: latest
+
+      # 5. Initialize TFLint
+      - name: Initialize TFLint
+        run: tflint --init
+
+      # 6. Run TFLint
+      - name: Run TFLint
+        run: tflint
+
+      # 7. Terraform Format Check
       - name: Terraform Format Check
         run: terraform fmt -check -recursive
 
-      # 5. Terraform Init
+      # 8. Terraform Init
       - name: Terraform Init
         run: terraform init
 
-      # 6. Terraform Validate
+      # 9. Terraform Validate
       - name: Terraform Validate
         run: terraform validate
 
-      # 7. Terraform Plan
+      # 10. Terraform Plan
       - name: Terraform Plan
         run: terraform plan -out=tfplan
