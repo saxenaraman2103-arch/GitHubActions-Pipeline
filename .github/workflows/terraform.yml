@@ -1,4 +1,4 @@
-name: Azure Login Test
+name: Terraform CI
 
 on:
   push:
@@ -6,19 +6,26 @@ on:
       - feature/firstpipeline
 
 permissions:
-  id-token: write
   contents: read
+  id-token: write
 
 jobs:
-  azure-login:
+
+  terraform-ci:
 
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: environments/prod
+
     steps:
 
+      # 1. Checkout
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      # 2. Azure Login
       - name: Azure Login
         uses: azure/login@v2
         with:
@@ -26,5 +33,22 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Check Azure Login
-        run: az account show
+      # 3. Setup Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      # 4. Terraform Format Check
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive
+
+      # 5. Terraform Init
+      - name: Terraform Init
+        run: terraform init
+
+      # 6. Terraform Validate
+      - name: Terraform Validate
+        run: terraform validate
+
+      # 7. Terraform Plan
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
