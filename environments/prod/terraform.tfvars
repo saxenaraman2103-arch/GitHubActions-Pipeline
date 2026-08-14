@@ -39,11 +39,12 @@ network_security_group = {
 
 subnet_network_association_group = {
   sa1 = {
-    subnet_id                 = azurerm_subnet["subnet1"].id
-    network_security_group_id = azurerm_network_security_group["nsg1"].id
+    subnet_key = "subnet1"
+    nsg_key    = "nsg1"
   }
+
   sa2 = {
-    subnet_id                 = azurerm_subnet["subnet2"].id
-    network_security_group_id = azurerm_network_security_group["nsg1"].id
+    subnet_key = "subnet2"
+    nsg_key    = "nsg1"
   }
 }
