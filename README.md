@@ -17,3 +17,4 @@ GitHubActions-Pipeline
             Terraform Validate
             ↓
             Terraform Plan
+            
