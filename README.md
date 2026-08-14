@@ -6,9 +6,17 @@ GitHubActions-Pipeline
             ↓
             Push
             ↓
+            Checkout
+            ↓
+            Azure Login
+            ↓
+            Terraform Setup
+            ↓
             TFLint
             ↓
-            ✅ Green
+            ✅
+            ↓
+            Checkov 🔐
             ↓
             Terraform Format
             ↓
@@ -17,4 +25,3 @@ GitHubActions-Pipeline
             Terraform Validate
             ↓
             Terraform Plan
-            

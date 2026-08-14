@@ -11,7 +11,7 @@ permissions:
 
 jobs:
 
-  terraform-ci:
+  terraform-ci-pipeline:
 
     runs-on: ubuntu-latest
 
@@ -51,18 +51,25 @@ jobs:
       - name: Run TFLint
         run: tflint
 
-      # 7. Terraform Format Check
+      # 7. Checkov Security Scan
+      - name: Run Checkov Security Scan
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          directory: environments/prod
+          framework: terraform
+
+      # 8. Terraform Format Check
       - name: Terraform Format Check
         run: terraform fmt -check -recursive
 
-      # 8. Terraform Init
+      # 9. Terraform Init
       - name: Terraform Init
         run: terraform init
 
-      # 9. Terraform Validate
+      # 10. Terraform Validate
       - name: Terraform Validate
         run: terraform validate
 
-      # 10. Terraform Plan
+      # 11. Terraform Plan
       - name: Terraform Plan
         run: terraform plan -out=tfplan
