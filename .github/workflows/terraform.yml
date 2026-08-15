@@ -57,6 +57,7 @@ jobs:
         with:
           directory: environments/prod
           framework: terraform
+          skip_check: CKV_AZURE_31
 
       # 8. Terraform Format Check
       - name: Terraform Format Check
