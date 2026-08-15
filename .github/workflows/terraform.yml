@@ -57,7 +57,6 @@ jobs:
         with:
           directory: environments/prod
           framework: terraform
-          skip_check: CKV_AZURE_31
           output_format: cli
           log_level: WARNING
 
