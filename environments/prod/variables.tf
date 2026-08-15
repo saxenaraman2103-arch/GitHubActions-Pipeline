@@ -30,8 +30,8 @@ variable "network_security_group" {
 
 variable "subnet_network_association_group" {
   type = map(object({
-    subnet_id                 = string
-    network_security_group_id = string
+    subnet_key = string
+    nsg_key    = string
   }))
 }
 

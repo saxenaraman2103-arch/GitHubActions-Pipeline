@@ -21,8 +21,8 @@ module "network_security_group" {
   depends_on = [module.resource_group]
 }
 
-module "subnet_network_association_group_association" {
-  source     = "../../modules/subnet-network-association-group"
+module "subnet_network_association_group" {
+  source     = "../../modules/subnet_network_security_group_association"
   config     = var.subnet_network_association_group
   depends_on = [module.network_security_group, module.subnet]
 }
