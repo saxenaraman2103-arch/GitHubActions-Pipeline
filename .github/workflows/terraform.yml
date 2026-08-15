@@ -58,6 +58,8 @@ jobs:
           directory: environments/prod
           framework: terraform
           skip_check: CKV_AZURE_31
+          output_format: cli
+          log_level: WARNING
 
       # 8. Terraform Format Check
       - name: Terraform Format Check
