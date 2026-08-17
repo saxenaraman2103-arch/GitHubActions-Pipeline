@@ -6,4 +6,10 @@ terraform {
       version = "~>5.0.1"
     }
   }
+  backend "azurerm" {
+    resource_group_name  = "raman-resource-group"
+    storage_account_name = "ramanstorageaccount123"
+    container_name       = "tfstate"
+    key                  = "prod.terraform.tfstate"
+  }
 }
