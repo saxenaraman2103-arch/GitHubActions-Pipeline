@@ -13,7 +13,7 @@ jobs:
 
   terraform-ci-pipeline:
 
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Windows, X64]
 
     defaults:
       run:
