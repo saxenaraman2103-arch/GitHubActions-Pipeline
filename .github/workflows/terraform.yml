@@ -10,7 +10,6 @@ permissions:
   id-token: write
 
 jobs:
-
   terraform-ci-pipeline:
 
     runs-on: [self-hosted, Windows, X64]
@@ -37,42 +36,50 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      # 4. Setup TFLint
-      - name: Setup TFLint
-        uses: terraform-linters/setup-tflint@v5
-        with:
-          tflint_version: latest
+      # 4. Check TFLint Installation
+      - name: Check TFLint
+        shell: powershell
+        run: |
+          tflint --version
 
       # 5. Initialize TFLint
       - name: Initialize TFLint
-        run: tflint --init
+        shell: powershell
+        run: |
+          tflint --init
 
       # 6. Run TFLint
       - name: Run TFLint
-        run: tflint
+        shell: powershell
+        run: |
+          tflint
 
       # 7. Checkov Security Scan
       - name: Run Checkov Security Scan
-        uses: bridgecrewio/checkov-action@v12
-        with:
-          directory: environments/prod
-          framework: terraform
-          output_format: sarif
-          skip_check: CKV2_AZURE_31
-          log_level: WARNING
+        shell: powershell
+        run: |
+          checkov -d . --framework terraform --skip-check CKV2_AZURE_31 --output sarif
 
       # 8. Terraform Format Check
       - name: Terraform Format Check
-        run: terraform fmt -check -recursive
+        shell: powershell
+        run: |
+          terraform fmt -check -recursive
 
       # 9. Terraform Init
       - name: Terraform Init
-        run: terraform init
+        shell: powershell
+        run: |
+          terraform init
 
       # 10. Terraform Validate
       - name: Terraform Validate
-        run: terraform validate
+        shell: powershell
+        run: |
+          terraform validate
 
       # 11. Terraform Plan
       - name: Terraform Plan
-        run: terraform plan -out=tfplan
+        shell: powershell
+        run: |
+          terraform plan -out=tfplan
